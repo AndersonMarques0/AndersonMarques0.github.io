@@ -1,0 +1,26 @@
+// scss/_about.scss
+
+.about-card, .profile-card {
+  background-color: $my-card-bg;
+  // Box shadows are used for aesthetic lift, replacing default Bootstrap borders
+}
+
+// Styling the unique avatar from the blueprint image
+.profile-avatar {
+  width: 120px;
+  height: 120px;
+  background-color: #fff;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 2rem;
+  font-weight: bold;
+  color: $my-dark-text;
+  
+  // Custom double-accent border using your palette
+  border: 4px solid #fff;
+  box-shadow: 
+    0 0 0 4px $my-light-blue, 
+    0 0 0 8px $my-light-red;
+}

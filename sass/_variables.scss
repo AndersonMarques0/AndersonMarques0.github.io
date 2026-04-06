@@ -1,0 +1,14 @@
+// 1. Custom Brand Colors
+$my-light-blue: #90E0EF;
+$my-light-red: #FFB3B3;
+$my-dark-text: #495057;
+$my-card-bg: #f8f9fa; // Light gray refinement from the image
+
+// 2. Overriding Bootstrap's default maps to use your colors globally
+$primary: $my-light-blue;
+$danger: $my-light-red;
+$body-bg: #fff;
+$body-color: $my-dark-text;
+
+// 3. (Optional but recommended) Import Bootstrap itself after variable overrides
+@import "../node_modules/bootstrap/scss/bootstrap";
