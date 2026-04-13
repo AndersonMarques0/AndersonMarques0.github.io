@@ -11,8 +11,10 @@ body {
 /* --- 2. The 3D Environment --- */
 .scene {
   width: 100vw;
-  height: 100vh;
+  height: 100vh; /* Fallback for older browsers */
+  height: 100dvh; /* FIX: Prevents mobile address bar from breaking height */
   perspective: 2000px; 
+  pointer-events: none; /* FIX: Let touches pass through the 3D scene */
 }
 
 .cube {
@@ -22,6 +24,7 @@ body {
   transform-style: preserve-3d;
   transform: translateZ(-50vw); 
   transition: transform 1s cubic-bezier(0.25, 1, 0.5, 1); 
+  pointer-events: none; /* FIX: Let touches pass through the 3D cube wrapper */
 }
 
 /* --- 3. The Faces of the Cube --- */
@@ -29,22 +32,30 @@ body {
   position: absolute;
   width: 100vw;
   height: 100vh;
-  overflow: hidden; /* FIX: Stop the 3D face itself from scrolling */
+  height: 100dvh; 
+  overflow: hidden; 
   backface-visibility: hidden; 
   background-color: #ffffff;
+  pointer-events: none; 
 }
 
-/* FIX: The magical 2D wrapper that isolates the scrollbar from the 3D math */
+.face.active {
+  pointer-events: auto; 
+}
+
+/* The magical 2D wrapper that isolates the scrollbar from the 3D math */
 .face-scroll-wrapper {
   width: 100%;
   height: 100%;
   overflow-y: auto; 
   overflow-x: hidden;
   padding-top: 80px; 
-  box-sizing: border-box; /* Crucial: stops the padding from breaking the screen height */
-  -webkit-overflow-scrolling: touch; /* Enables smooth "momentum" scrolling on iOS */
-  overscroll-behavior-y: contain;    /* Stops the browser from trying to scroll the body */
+  box-sizing: border-box; 
+  -webkit-overflow-scrolling: touch; 
+  overscroll-behavior-y: contain;    
   touch-action: pan-y;
+  transform: translateZ(0); 
+  /* (Make sure there are NO pointer-events rules in this block) */
 }
 
 /* Position the 4 faces in a perfect box */
@@ -69,4 +80,23 @@ body {
 
 html { 
   scroll-behavior: smooth; 
+}
+
+.face {
+  z-index: 1; 
+}
+
+/* 2. Pull the face you are currently looking at to the absolute front */
+.face.active {
+  z-index: 999; 
+}
+
+/* 3. Explicitly force the mobile browser to allow touches inside the active wrapper */
+.face.active .face-scroll-wrapper {
+  pointer-events: auto !important; 
+}
+
+/* 4. Add a little padding to the bottom so your last card doesn't touch the floor */
+.face-scroll-wrapper > div {
+  padding-bottom: 120px; 
 }
