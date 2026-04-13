@@ -42,6 +42,9 @@ body {
   overflow-x: hidden;
   padding-top: 80px; 
   box-sizing: border-box; /* Crucial: stops the padding from breaking the screen height */
+  -webkit-overflow-scrolling: touch; /* Enables smooth "momentum" scrolling on iOS */
+  overscroll-behavior-y: contain;    /* Stops the browser from trying to scroll the body */
+  touch-action: pan-y;
 }
 
 /* Position the 4 faces in a perfect box */
